@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FoodPlanner</string>
+    <string name="allCategories">All Categories</string>
+    <string name="category">Category</string>
+    <string name="categorydescription">Description</string>
+    <string name="addtofav">Add to fav</string>
 </resources>

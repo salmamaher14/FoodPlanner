@@ -1,4 +1,5 @@
-package allcategories.view;
+package allmeals.view;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplanner.R;
@@ -19,7 +22,7 @@ import java.util.List;
 import model.Category;
 
 
-public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdapter.CategoryViewHolder> {
+public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.CategoryViewHolder> {
     Context context;
     List<Category>categories;
     private static final String TAG = "RecyclerView";
@@ -42,7 +45,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
     }
 
 
-    public AllCategoriesAdapter(Context context, ArrayList<Category> categories,OnCategoryClickListener listener) {
+    public AllMealsAdapter(Context context, ArrayList<Category> categories, OnCategoryClickListener listener) {
         this.context = context;
         this.categories = categories;
         this.listener=listener;
