@@ -8,22 +8,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplanner.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Category;
 
 
 public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdapter.CategoryViewHolder> {
     Context context;
-    List<Category>categories;
+    List<Category> categories;
     private static final String TAG = "RecyclerView";
     OnCategoryClickListener listener;
+
+
 
     public Context getContext() {
         return context;
@@ -73,14 +74,20 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.imageViewCategory);
-
-        holder.btnAddToFav.setOnClickListener(new View.OnClickListener() {
+        holder.categoryCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                listener.onCategoryListener(currentCategory);
+                listener.onCategorySelected(currentCategory);
             }
         });
+
+//        holder.btnAddToFav.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                listener.onCategoryListener(currentCategory);
+//            }
+//        });
     }
     
     @Override
@@ -93,15 +100,16 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
         ImageView imageViewCategory;
         TextView categoryName;
         TextView categoryDesc;
-        Button btnAddToFav;
+        CardView categoryCardView;
 
-        public CategoryViewHolder(@NonNull View itemView) {   // render each product
+        public CategoryViewHolder(@NonNull View itemView) {   // render each category
             super(itemView);
             imageViewCategory=itemView.findViewById(R.id.categoryImage);
             categoryName=itemView.findViewById(R.id.categoryName);
             categoryDesc=itemView.findViewById(R.id.categoryDesc);
+            categoryCardView=itemView.findViewById(R.id.categoryCardViewId);
 
-//            btnAddToFav=itemView.findViewById(R.id.btnAddToFav);
+
 
 
         }

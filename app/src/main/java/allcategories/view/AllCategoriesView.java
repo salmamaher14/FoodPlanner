@@ -7,4 +7,5 @@ import model.Category;
 public interface AllCategoriesView {
     public void showData(List<Category> categories);
     public void showErrMsg(String error);
+
 }

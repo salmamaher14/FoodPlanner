@@ -1,10 +1,13 @@
  package allcategories.presenter;;
 
+ import android.content.Context;
+ import android.content.Intent;
  import android.util.Log;
 
  import java.util.List;
 
  import allcategories.view.AllCategoriesView;
+ import allmeals.view.AllMealsActivity;
  import model.FoodRepository;
  import model.Category;
  import network.NetworkDeligate;
@@ -12,7 +15,8 @@
 public class AllCategoriesPresenterImpl implements AllCategoriesPresenter, NetworkDeligate {
     private AllCategoriesView _view;
     private FoodRepository _repo;
-    private static final String TAG ="allcategories";
+    private Context context;
+    private static final String TAG ="allmeals";
 
     public AllCategoriesPresenterImpl (AllCategoriesView _view , FoodRepository _repo) {
         this._view = _view;
@@ -45,4 +49,8 @@ public class AllCategoriesPresenterImpl implements AllCategoriesPresenter, Netwo
         _repo.getAllCategories(this);
 
     }
+
+
+
+
 }

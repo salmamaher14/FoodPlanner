@@ -8,4 +8,6 @@ import model.Meal;
 public interface AllMealsView {
     public void showData(List<Meal> meals);
     public void showErrMsg(String error);
+
+
 }

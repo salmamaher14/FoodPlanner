@@ -1,32 +1,28 @@
 package allmeals.view;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplanner.R;
-
 import java.util.ArrayList;
 import java.util.List;
+import model.Meal;
 
-import model.Category;
 
-
-public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.CategoryViewHolder> {
+public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MealViewHolder> {
     Context context;
-    List<Category>categories;
+    List<Meal>meals;
     private static final String TAG = "RecyclerView";
-    OnCategoryClickListener listener;
+    OnMealClickListener listener;
+
 
     public Context getContext() {
         return context;
@@ -36,76 +32,70 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.Catego
         this.context = context;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<Meal> getMeals() {
+        return meals;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
     }
 
-
-    public AllMealsAdapter(Context context, ArrayList<Category> categories, OnCategoryClickListener listener) {
+    public AllMealsAdapter(Context context, ArrayList<Meal> meals, OnMealClickListener listener) {
         this.context = context;
-        this.categories = categories;
+        this.meals = meals;
         this.listener=listener;
     }
 
     @NonNull
     @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view =inflater.inflate(R.layout.category_item,parent,false);
-        CategoryViewHolder CategoryViewHolder=new CategoryViewHolder(view); // call viewHolder constractor.
+        View view =inflater.inflate(R.layout.meal_item,parent,false);
+        MealViewHolder mealViewHolder=new MealViewHolder(view); // call viewHolder constractor.
         Log.i(TAG, "onCreateViewHolder: ");
-        return CategoryViewHolder;
+        return mealViewHolder;
 
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        Category currentCategory = categories.get(position);
+    public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
+        Meal currentMeal= meals.get(position);
 
-        holder.categoryName.setText("Category: " + currentCategory.getStrCategory());
-        holder.categoryDesc.setText("Description: " + currentCategory.getStrCategoryDescription());
-
+        holder.mealName.setText("Meal: " + currentMeal.getStrMeal());
         Glide.with(context)
-                .load(categories.get(position).getStrCategoryThumb())
+                .load(meals.get(position).getStrMealThumb())
                 .apply(new RequestOptions().override(200, 200))
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground)
-                .into(holder.imageViewCategory);
+                .into(holder.mealImageView);
 
-        holder.btnAddToFav.setOnClickListener(new View.OnClickListener() {
+        holder.mealCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                listener.onCategoryListener(currentCategory);
+
+                listener.onMealSelected(currentMeal);
             }
         });
     }
     
     @Override
     public int getItemCount() {
-        return categories.size();
+        return meals.size();
     }
 
-    public class CategoryViewHolder extends RecyclerView.ViewHolder{
+    public class MealViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView imageViewCategory;
-        TextView categoryName;
-        TextView categoryDesc;
-        Button btnAddToFav;
+        ImageView mealImageView;
+        TextView mealName;
+        CardView mealCard;
 
-        public CategoryViewHolder(@NonNull View itemView) {   // render each product
+
+        public MealViewHolder(@NonNull View itemView) {   // render each meal
             super(itemView);
-            imageViewCategory=itemView.findViewById(R.id.categoryImage);
-            categoryName=itemView.findViewById(R.id.categoryName);
-            categoryDesc=itemView.findViewById(R.id.categoryDesc);
-
-//            btnAddToFav=itemView.findViewById(R.id.btnAddToFav);
-
+            mealImageView=itemView.findViewById(R.id.mealImageView);
+            mealName=itemView.findViewById(R.id.mealName);
+            mealCard=itemView.findViewById(R.id.mealCard);
 
         }
     }

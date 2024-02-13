@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Image of the meal -->
+        <ImageView
+            android:id="@+id/imageViewMeal"
+            android:layout_width="match_parent"
+            android:layout_height="189dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+
+        <!-- Name of the meal -->
+        <TextView
+            android:id="@+id/textViewMealName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Meal Name"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Origin country -->
+        <TextView
+            android:id="@+id/textViewOriginCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Origin Country"
+            android:textSize="16sp" />
+
+        <!-- Ingredients -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="164dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Example text views for displaying ingredients -->
+            <TextView
+                android:id="@+id/textViewIngredientid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingredient 1"
+                android:textSize="16sp" />
+
+            <!-- Add more TextViews for other ingredients -->
+
+        </LinearLayout>
+
+        <!-- Steps -->
+
+        <!-- Video player -->
+
+        <TextView
+            android:id="@+id/textViewSteps"
+            android:layout_width="match_parent"
+            android:layout_height="244dp"
+            android:padding="16dp"
+            android:text="Steps"
+            android:textSize="16sp" />
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="105dp" />
+
+        <FrameLayout
+            android:id="@+id/videoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_margin="16dp">
+
+            <!-- Adjust height as needed -->
+
+        </FrameLayout>
+
+        <!-- Button to add/remove from favorites -->
+        <Button
+            android:id="@+id/buttonAddToFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Add to Favorites" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

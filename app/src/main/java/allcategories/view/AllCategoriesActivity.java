@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.foodplanner.R;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import allcategories.presenter.AllCategoriesPresenter;
 import allcategories.presenter.AllCategoriesPresenterImpl;
+import allmeals.view.AllMealsActivity;
 import model.FoodRepositoryImpl;
 import model.Category;
 import network.FoodRemoteDataSourceImpl;
@@ -57,9 +59,13 @@ public class AllCategoriesActivity extends AppCompatActivity implements OnCatego
 
     }
 
-
     @Override
-    public void onCategoryListener(Category category) {
-
+    public void onCategorySelected(Category category) {
+        Intent intent = new Intent(this, AllMealsActivity.class);
+        intent.putExtra("CATEGORY_Name", category.getStrCategory());
+        startActivity(intent);
     }
+
+
+
 }
