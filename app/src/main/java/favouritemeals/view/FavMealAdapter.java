@@ -1,9 +1,10 @@
-package allmeals.view;
+package favouritemeals.view;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -17,11 +18,11 @@ import java.util.List;
 import model.Meal;
 
 
-public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MealViewHolder> {
+public class FavMealAdapter extends RecyclerView.Adapter<FavMealAdapter.FavMealViewHolder> {
     Context context;
     List<Meal>meals;
-    private static final String TAG = "RecyclerView";
-    OnMealClickListener listener;
+    private static final String TAG = "FavMealAdapter";
+    OnRemoveMealClickListener listener;
 
 
     public Context getContext() {
@@ -40,7 +41,7 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MealVi
         this.meals = meals;
     }
 
-    public AllMealsAdapter(Context context, ArrayList<Meal> meals, OnMealClickListener listener) {
+    public FavMealAdapter(Context context, ArrayList<Meal> meals, OnRemoveMealClickListener listener) {
         this.context = context;
         this.meals = meals;
         this.listener=listener;
@@ -48,10 +49,10 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MealVi
 
     @NonNull
     @Override
-    public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavMealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view =inflater.inflate(R.layout.meal_item,parent,false);
-        MealViewHolder mealViewHolder=new MealViewHolder(view); // call viewHolder constractor.
+        View view =inflater.inflate(R.layout.fav_meal,parent,false);
+        FavMealViewHolder mealViewHolder=new FavMealViewHolder(view); // call viewHolder constractor.
         Log.i(TAG, "onCreateViewHolder: ");
         return mealViewHolder;
 
@@ -59,45 +60,48 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MealVi
 
 
     @Override
-    public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavMealViewHolder holder, int position) {
         Meal currentMeal= meals.get(position);
 
-        holder.mealName.setText("Meal: " + currentMeal.getStrMeal());
+        holder.favMealName.setText(currentMeal.getStrMeal());
         Glide.with(context)
                 .load(meals.get(position).getStrMealThumb())
                 .apply(new RequestOptions().override(200, 200))
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground)
-                .into(holder.mealImageView);
+                .into(holder.favMealImageView);
 
-        holder.mealCard.setOnClickListener(new View.OnClickListener() {
+        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                listener.onMealSelected(currentMeal);
+                listener.removeMealSelected(currentMeal);   //remove
             }
         });
     }
-    
+
     @Override
     public int getItemCount() {
         return meals.size();
     }
 
-    public class MealViewHolder extends RecyclerView.ViewHolder{
+    public class FavMealViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView mealImageView;
-        public TextView mealName;
+        ImageView favMealImageView;
+        TextView favMealName;
         CardView mealCard;
+        Button btnRemove;
 
 
-        public MealViewHolder(@NonNull View itemView) {   // render each meal
+        public FavMealViewHolder(@NonNull View itemView) {   // render each meal
             super(itemView);
-            mealImageView=itemView.findViewById(R.id.mealImageView);
-            mealName=itemView.findViewById(R.id.mealName);
-            mealCard=itemView.findViewById(R.id.mealCard);
+            favMealImageView=itemView.findViewById(R.id.favImageView);
+            favMealName=itemView.findViewById(R.id.favTitle);
+            mealCard=itemView.findViewById(R.id.favCardView);
+            btnRemove=itemView.findViewById(R.id.btnRemove);
 
         }
     }
 }
+
 

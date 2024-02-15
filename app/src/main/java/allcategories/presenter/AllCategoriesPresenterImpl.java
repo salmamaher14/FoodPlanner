@@ -7,7 +7,7 @@
  import java.util.List;
 
  import allcategories.view.AllCategoriesView;
- import allmeals.view.AllMealsActivity;
+
  import model.FoodRepository;
  import model.Category;
  import network.NetworkDeligate;

@@ -1,17 +1,16 @@
 package network;
-
 import android.util.Log;
-
 import java.util.List;
-
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import model.Categories;
+import model.Category;
 import model.Meal;
 import model.MealDetail;
 import model.Meals;
 import model.AllMealsDetails;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -20,23 +19,25 @@ public class FoodRemoteDataSourceImpl implements FoodRemoteDataSource {
     private static final String TAG = "RemoteDataSourceImpl";
     private static FoodRemoteDataSourceImpl client = null;
     private FoodService foodService;
-    Call<Meals> mealsCall;
-    Call<Categories> categoriesCall;
-    Call<AllMealsDetails>mealsDetailsCall;
+    Single<Meals> mealsCall;
+    Single<Categories> categoriesCall;
+    Single<AllMealsDetails> mealsDetailsCall;
 
 
     public FoodRemoteDataSourceImpl() {
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL)
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
 
         foodService = retrofit.create(FoodService.class);
 
     }
 
-    public static FoodRemoteDataSourceImpl getInstance(){
-        if(client==null){
-            client=new FoodRemoteDataSourceImpl();
+    public static FoodRemoteDataSourceImpl getInstance() {
+        if (client == null) {
+            client = new FoodRemoteDataSourceImpl();
         }
         return client;
     }
@@ -46,86 +47,59 @@ public class FoodRemoteDataSourceImpl implements FoodRemoteDataSource {
     public void getAllCategories(NetworkDeligate networkDeligate) {
 
         categoriesCall = foodService.getAllCategories();
-        categoriesCall.enqueue(new Callback<Categories>() {
-            @Override
-            public void onResponse(Call<Categories> call, Response<Categories> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Log.e(TAG, "onResponse : " + response.body());
-                    networkDeligate.onSuccessResult(response.body().getCategories());
+        categoriesCall.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        response -> {
+                            //if (response.isSuccessful()) {
+                            List<Category> categories = response.getCategories();
+                            Log.i(TAG, "onResponse: Callback : " + " " + categories);
+                            networkDeligate.onSuccessResult(categories);
+                        },
+                        throwable -> {
+                            Log.i(TAG, "onFailure: " + throwable.getMessage());
+                            networkDeligate.onFailureResult(throwable.getMessage());
+                            throwable.printStackTrace();
+                        }
+                );
 
-                } else {
-                    Log.e(TAG, "Failed to fetch data: " + response.message());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Categories> call, Throwable t) {
-                Log.e(TAG, "Retrofit onFailure: " + t.getMessage());
-                networkDeligate.onFailureResult(t.getMessage());
-
-            }
-        });
 
     }
 
     @Override
-    public void getMealsByCategoryId(NetworkDeligate networkDeligate,String categoryName) {
-        mealsCall=foodService.getMealsByCategoryId(categoryName);
-        mealsCall.enqueue(new Callback<Meals>() {
-            @Override
-            public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Meal> meals = response.body().getMeals();
-                    Log.e("Vegeterian", "Succeeded to get  meals: " + response.body()+meals.get(0).getStrMeal());
-                    networkDeligate.onSuccessResult(response.body().getMeals());
-                } else {
-                    Log.e(TAG, "Failed to fetch  meals: " + response.message());
-                    networkDeligate.onFailureResult("Failed to fetch  meals: " + response.message());
-                }
+    public void getMealsByCategoryName(NetworkDeligate networkDeligate, String categoryName) {
+        mealsCall = foodService.getMealsByCategoryName(categoryName);
+        mealsCall.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        response -> {
+                            List<Meal> meals = response.getMeals();
+                            networkDeligate.onSuccessResult(meals);
+                        },
+                        throwable -> {
+                            networkDeligate.onFailureResult(throwable.getMessage());
+                            throwable.printStackTrace();
+                        }
+                );
 
-            }
-
-            @Override
-            public void onFailure(Call<Meals> call, Throwable t) {
-                Log.e(TAG, "Retrofit onFailure: " + t.getMessage());
-                networkDeligate.onFailureResult(t.getMessage());
-
-            }
-        });
 
     }
 
     @Override
     public void getMealsById(NetworkDeligate networkDeligate, String id) {
-        mealsDetailsCall=foodService.getMealById(id);
-        mealsDetailsCall.enqueue(new Callback<AllMealsDetails>() {
-            @Override
-            public void onResponse(Call<AllMealsDetails> call, Response<AllMealsDetails> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<MealDetail> meals = response.body().getMealsDetails();
-                    Log.e("mealdetail", "Succeeded to get  meal detail: " + response.body()+meals.get(0).getStrMeal());
-                    networkDeligate.onSuccessResult(response.body().getMealsDetails());
-                } else {
-                    Log.e(TAG, "Failed to fetch  meals: " + response.message());
-                    networkDeligate.onFailureResult("Failed to fetch  meals: " + response.message());
+        mealsDetailsCall = foodService.getMealById(id);
+        mealsDetailsCall.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()
+        ).subscribe(
+                response -> {
+                    List<MealDetail> mealDetailList = response.getMealsDetails();
+                    networkDeligate.onSuccessResult(mealDetailList);
+                },
+                throwable -> {
+                    networkDeligate.onFailureResult(throwable.getMessage());
+                    throwable.printStackTrace();
                 }
+        );
 
-            }
-
-            @Override
-            public void onFailure(Call<AllMealsDetails> call, Throwable t) {
-                Log.e(TAG, "Retrofit onFailure: " + t.getMessage());
-                networkDeligate.onFailureResult(t.getMessage());
-
-            }
-
-
-        });
 
     }
-
-
 }
 
 

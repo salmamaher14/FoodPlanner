@@ -4,7 +4,7 @@ import network.NetworkDeligate;
 
 public interface AllMealsPresenter {
 
-    void getMealsByCategoryId(String categoryName);
+    void getMealsByCategoryName(String categoryName);
 
 
 

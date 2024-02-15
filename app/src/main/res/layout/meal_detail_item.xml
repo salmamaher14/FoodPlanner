@@ -57,9 +57,6 @@
         </LinearLayout>
 
         <!-- Steps -->
-
-        <!-- Video player -->
-
         <TextView
             android:id="@+id/textViewSteps"
             android:layout_width="match_parent"
@@ -68,20 +65,17 @@
             android:text="Steps"
             android:textSize="16sp" />
 
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/playerView"
-            android:layout_width="match_parent"
-            android:layout_height="105dp" />
+<!--        &lt;!&ndash; Video player &ndash;&gt;-->
+<!--        <com.google.android.exoplayer2.ui.PlayerView-->
+<!--            android:id="@+id/playerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="105dp" />-->
 
-        <FrameLayout
-            android:id="@+id/videoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_margin="16dp">
-
-            <!-- Adjust height as needed -->
-
-        </FrameLayout>
+<!--        &lt;!&ndash; WebView for YouTube video &ndash;&gt;-->
+<!--        <WebView-->
+<!--            android:id="@+id/webView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
 
         <!-- Button to add/remove from favorites -->
         <Button

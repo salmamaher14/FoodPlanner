@@ -1,5 +1,6 @@
 package network;
 
+import io.reactivex.rxjava3.core.Single;
 import model.Categories;
 import model.Meals;
 import model.AllMealsDetails;
@@ -8,14 +9,17 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface FoodService {
+//    @GET("api/json/v1/1/categories.php")
+//    Call<Categories> getAllCategories();
+
     @GET("api/json/v1/1/categories.php")
-    Call<Categories> getAllCategories();
+    Single<Categories> getAllCategories();
 
     @GET("api/json/v1/1/filter.php")
-    Call<Meals> getMealsByCategoryId(@Query("c") String categoryName);
+    Single<Meals> getMealsByCategoryName(@Query("c") String categoryName);
 
     @GET("api/json/v1/1/lookup.php")
-    Call<AllMealsDetails> getMealById(@Query("i") String mealId);
+    Single<AllMealsDetails> getMealById(@Query("i") String mealId);
 
 
 

@@ -2,6 +2,7 @@ package mealdetail.view;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +23,14 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
 
     private Context context;
     private List<MealDetail> mealList;
-    private SimpleExoPlayer exoPlayer;
+
+    OnFavButtonListener listener;
 
 
-
-    public MealDetailAdapter(Context context, List<MealDetail> mealList) {
+    public MealDetailAdapter(Context context, List<MealDetail> mealList, OnFavButtonListener listener) {
         this.context = context;
         this.mealList = mealList;
+        this.listener = listener;
     }
 
     public List<MealDetail> getMealList() {
@@ -78,14 +80,23 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
         // Set steps
         holder.textSteps.setText(meal.getStrInstructions());
 
-        // Initialize video player
+//        SimpleExoPlayer exoPlayer;
+//        Uri videoUri = Uri.parse(meal.getStrYoutube());
+//        exoPlayer = new SimpleExoPlayer.Builder(context).build();
+//        MediaItem mediaItem = MediaItem.fromUri(videoUri);
+//        exoPlayer.setMediaItem(mediaItem);
+//        exoPlayer.setPlayWhenReady(true);
+//        holder.playerView.setPlayer(exoPlayer);
 
-        Uri videoUri = Uri.parse(meal.getStrYoutube());
-        exoPlayer = new SimpleExoPlayer.Builder(context).build();
-        MediaItem mediaItem = MediaItem.fromUri(videoUri);
-        exoPlayer.setMediaItem(mediaItem);
-        exoPlayer.setPlayWhenReady(true);
-        holder.playerView.setPlayer(exoPlayer);
+        holder.buttonAddToFavorites.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("mealdetail", "onClick: "+meal.getStrArea());
+                listener.onFavButtonClick(meal);
+
+            }
+        });
 
 
 
@@ -174,7 +185,7 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
-            playerView = itemView.findViewById(R.id.playerView);
+//            playerView = itemView.findViewById(R.id.playerView);
             imageMeal = itemView.findViewById(R.id.imageViewMeal);
             textMealName = itemView.findViewById(R.id.textViewMealName);
             textOriginCountry = itemView.findViewById(R.id.textViewOriginCountry);

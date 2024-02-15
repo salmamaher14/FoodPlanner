@@ -1,21 +1,38 @@
 package com.example.foodplanner;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import allcategories.view.AllCategoriesActivity;
 
 public class MainActivity extends AppCompatActivity {
+    NavController navController;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn=findViewById(R.id.allCategories);
+//        bottomNavigationView=findViewById(R.id.bottomNavigationId);
+        navController= Navigation.findNavController(this,R.id.nav_host_fragment);
+//        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        NavigationUI.setupActionBarWithNavController(this,navController);
+
+
+
+
+
+
+
+
+
+
+
+
+
+   /*     Button btn=findViewById(R.id.allCategories);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    */
+
+
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        return navController.navigateUp()|| super.onSupportNavigateUp();
 
     }
 }

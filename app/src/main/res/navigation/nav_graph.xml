@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/allCategoriesFragment">
+
+    <fragment
+        android:id="@+id/mealDetailFragment"
+        android:name="mealdetail.view.MealDetailFragment"
+        android:label="MealDetail"
+        tools:layout="@layout/fragment_meal_detail">
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_mealDetailFragment_to_favMealFragment"
+            app:destination="@id/favMealFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allCategoriesFragment"
+        android:name="allcategories.view.AllCategoriesFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_all_categories">
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_allMealsFragment"
+            app:destination="@id/allMealsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favMealFragment"
+        android:name="favouritemeals.view.FavMealFragment"
+        android:label="Favourites"
+        tools:layout="@layout/fragment_fav_meal" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/allMealsFragment"
+        android:name="allmeals.view.AllMealsFragment"
+        android:label="Meals"
+        tools:layout="@layout/fragment_all_meals">
+        <action
+            android:id="@+id/action_allMealsFragment_to_mealDetailFragment"
+            app:destination="@id/mealDetailFragment" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+    </fragment>
+</navigation>

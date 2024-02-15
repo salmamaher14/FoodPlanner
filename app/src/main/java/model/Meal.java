@@ -6,18 +6,27 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 @Entity(tableName = "meals_table")
 public class Meal {
 
-    @SerializedName("strMeal")
-    @Expose
     private String strMeal;
-    @SerializedName("strMealThumb")
-    @Expose
+
     private String strMealThumb;
+
     @PrimaryKey
     @NonNull
     private String idMeal;
+
+    public Meal(String strMeal, String strMealThumb, @NonNull String idMeal) {
+        this.strMeal = strMeal;
+        this.strMealThumb = strMealThumb;
+        this.idMeal = idMeal;
+    }
+
+    public Meal() {
+
+    }
 
     public String getStrMeal() {
         return strMeal;

@@ -2,18 +2,19 @@ package allmeals.presenter;
 import android.content.Context;
 import android.util.Log;
 import java.util.List;
-import allmeals.view.AllMealsActivity;
+import allmeals.view.AllMealsFragment;
+import allmeals.view.AllMealsView;
 import model.FoodRepository;
 import network.NetworkDeligate;
 
 
 public class AllMealsPresenterImpl implements AllMealsPresenter , NetworkDeligate {
 
-    private AllMealsActivity _view;
+    private AllMealsView _view;
     private FoodRepository _repo;
     private static final String TAG = "allmeals";
 
-    public AllMealsPresenterImpl(AllMealsActivity _view, FoodRepository _repo) {
+    public AllMealsPresenterImpl(AllMealsFragment _view, FoodRepository _repo) {
         this._view = _view;
         this._repo = _repo;
     }
@@ -31,7 +32,7 @@ public class AllMealsPresenterImpl implements AllMealsPresenter , NetworkDeligat
     }
 
     @Override
-    public void getMealsByCategoryId(String categoryName) {
+    public void getMealsByCategoryName(String categoryName) {
         _repo.getMealsByCategoryId(this,categoryName);
     }
 

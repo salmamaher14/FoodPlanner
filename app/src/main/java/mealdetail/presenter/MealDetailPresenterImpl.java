@@ -1,19 +1,18 @@
 package mealdetail.presenter;
-
 import java.util.List;
-
-import allmeals.view.AllMealsActivity;
-import mealdetail.view.MealDetailActivity;
+import mealdetail.view.MealDetailFragment;
 import model.FoodRepository;
+import model.Meal;
+import model.MealDetail;
 import network.NetworkDeligate;
 
 public class MealDetailPresenterImpl implements MealDetailPresenter , NetworkDeligate {
 
-    private MealDetailActivity _view;
+    private MealDetailFragment _view;
     private FoodRepository _repo;
-    private static final String TAG = "allmeals";
+    private static final String TAG = "MealDetailFragment";
 
-    public MealDetailPresenterImpl(MealDetailActivity _view, FoodRepository _repo) {
+    public MealDetailPresenterImpl(MealDetailFragment _view, FoodRepository _repo) {
         this._view = _view;
         this._repo = _repo;
     }
@@ -22,7 +21,7 @@ public class MealDetailPresenterImpl implements MealDetailPresenter , NetworkDel
 
     @Override
     public void onSuccessResult(List MealDetail) {
-        _view.showData(MealDetail);
+        _view.showMealDetail(MealDetail);
     }
 
     @Override
@@ -34,5 +33,10 @@ public class MealDetailPresenterImpl implements MealDetailPresenter , NetworkDel
     @Override
     public void getMealsById(String id) {
         _repo.getMealsById(this,id);
+    }
+
+    @Override
+    public void addMealToFav(MealDetail meal) {
+        _repo.insertMeal(meal);
     }
 }
