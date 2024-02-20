@@ -7,4 +7,5 @@ import network.NetworkDeligate;
 public interface MealDetailPresenter {
     void getMealsById( String id);
     void addMealToFav(MealDetail meal);
+    void addMealToPlanning(MealDetail meal,String date);
 }

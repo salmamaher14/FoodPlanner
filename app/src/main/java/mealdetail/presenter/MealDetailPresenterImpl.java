@@ -29,6 +29,51 @@ public class MealDetailPresenterImpl implements MealDetailPresenter , NetworkDel
 
     }
 
+    @Override
+    public void onSuccessFetchedCategories(List fetchedCategories) {
+
+    }
+
+    @Override
+    public void onSuccessGetMealsByCategoryName(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetMealsByAreaName(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetMealsByMainIngrediant(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetAllIngrediants(List ingrediants) {
+
+    }
+
+    @Override
+    public void onSuccessGetAllArea(List areas) {
+
+    }
+
+    @Override
+    public void OnSuccessFetchedAreas(List fetchedAreas) {
+
+    }
+
+    @Override
+    public void OnSuccessFetchedIngrediants(List fetchedIngrediants) {
+
+    }
+
+    @Override
+    public void OnSuccessgetMealsByFirstLetter(List fetchedMeals) {
+
+    }
+
 
     @Override
     public void getMealsById(String id) {
@@ -38,5 +83,10 @@ public class MealDetailPresenterImpl implements MealDetailPresenter , NetworkDel
     @Override
     public void addMealToFav(MealDetail meal) {
         _repo.insertMeal(meal);
+    }
+
+    @Override
+    public void addMealToPlanning(MealDetail meal, String date) {
+        _repo.insertPlannedMeal(meal,date);
     }
 }

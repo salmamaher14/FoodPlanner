@@ -1,8 +1,5 @@
 package mealdetail.view;
-
-import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -11,26 +8,21 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.foodplanner.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import allmeals.view.AllMealsFragmentDirections;
 import mealdetail.presenter.MealDetailPresenterImpl;
 import model.FoodRepositoryImpl;
-import model.Meal;
 import model.MealDetail;
 import model.MealLocalDataSourceImpl;
 import network.FoodRemoteDataSourceImpl;
 
 
-public class MealDetailFragment extends Fragment implements MealDetailView,OnFavButtonListener {
+
+public class MealDetailFragment extends Fragment implements MealDetailView, OnMealDetailListener {
 
     RecyclerView mealDetailRecyclerView;
     MealDetailAdapter mealDetailAdapter;
@@ -88,6 +80,10 @@ public class MealDetailFragment extends Fragment implements MealDetailView,OnFav
 
     }
 
+
+
+
+
     @Override
     public void onFavButtonClick(MealDetail meal) {
         mealDetailPresenter.addMealToFav(meal);
@@ -95,4 +91,13 @@ public class MealDetailFragment extends Fragment implements MealDetailView,OnFav
         navController.navigate(MealDetailFragmentDirections.actionMealDetailFragmentToFavMealFragment());
 
     }
+
+    @Override
+    public void onPlannedButtonListener(MealDetail mealDetail , String date) {
+        mealDetailPresenter.addMealToPlanning(mealDetail,date);
+        NavController navController = Navigation.findNavController(getView());
+        navController.navigate(MealDetailFragmentDirections.actionMealDetailFragmentToPlanningDaysFragment());
+
+    }
+
 }

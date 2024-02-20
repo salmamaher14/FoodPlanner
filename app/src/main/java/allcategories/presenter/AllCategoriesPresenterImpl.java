@@ -35,13 +35,51 @@ public class AllCategoriesPresenterImpl implements AllCategoriesPresenter, Netwo
 
     }
 
+    @Override
+    public void onSuccessFetchedCategories(List fetchedCategories) {
 
+    }
 
-//    @Override
-//    public void addToFav(Product product) {
-//        _repo.insertProduct(product);
-//
-//    }
+    @Override
+    public void onSuccessGetMealsByCategoryName(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetMealsByAreaName(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetMealsByMainIngrediant(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetAllIngrediants(List ingrediants) {
+
+    }
+
+    @Override
+    public void onSuccessGetAllArea(List areas) {
+
+    }
+
+    @Override
+    public void OnSuccessFetchedAreas(List fetchedAreas) {
+
+    }
+
+    @Override
+    public void OnSuccessFetchedIngrediants(List fetchedIngrediants) {
+
+    }
+
+    @Override
+    public void OnSuccessgetMealsByFirstLetter(List fetchedMeals) {
+
+    }
+
 
     @Override
     public void getAllCategories() {

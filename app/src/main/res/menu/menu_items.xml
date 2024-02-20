@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/search"
         android:title="Item"
-        android:id="@+id/searchFragment"/>
+        android:id="@+id/searchFeatureFragment"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/calender"
         android:title="Item"
-        android:id="@+id/calenderFragment"/>
+        android:id="@+id/planningDaysFragment"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,4 +31,5 @@
         android:icon="@drawable/favorite"
         android:title="Item"
         android:id="@+id/favouriteFragment"/>
+
 </menu>

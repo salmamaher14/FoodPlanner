@@ -52,4 +52,9 @@ public class Meal {
         this.idMeal = idMeal;
     }
 
+    @Override
+    public String toString() {
+        return strMeal;
+    }
+
 }

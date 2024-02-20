@@ -15,9 +15,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        bottomNavigationView=findViewById(R.id.bottomNavigationId);
+        bottomNavigationView=findViewById(R.id.bottomNavigationId);
         navController= Navigation.findNavController(this,R.id.nav_host_fragment);
-//        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        NavigationUI.setupWithNavController(bottomNavigationView,navController);
         NavigationUI.setupActionBarWithNavController(this,navController);
 
 
@@ -28,21 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-   /*     Button btn=findViewById(R.id.allCategories);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AllCategoriesActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-    */
 
 
     }

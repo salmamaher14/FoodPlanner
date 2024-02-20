@@ -1,22 +1,26 @@
 package mealdetail.view;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+
 import model.MealDetail;
 
 public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.MealViewHolder> {
@@ -24,10 +28,10 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
     private Context context;
     private List<MealDetail> mealList;
 
-    OnFavButtonListener listener;
+    OnMealDetailListener listener;
 
 
-    public MealDetailAdapter(Context context, List<MealDetail> mealList, OnFavButtonListener listener) {
+    public MealDetailAdapter(Context context, List<MealDetail> mealList, OnMealDetailListener listener) {
         this.context = context;
         this.mealList = mealList;
         this.listener = listener;
@@ -94,6 +98,21 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
             public void onClick(View v) {
                 Log.i("mealdetail", "onClick: "+meal.getStrArea());
                 listener.onFavButtonClick(meal);
+
+            }
+        });
+
+        holder.btnAddToPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(new DatePickerCallback() {
+                    @Override
+                    public void onDateSelected(String selectedDate) {
+
+                        listener.onPlannedButtonListener(meal,selectedDate);
+
+                    }
+                });
 
             }
         });
@@ -182,6 +201,7 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
         TextView textIngredients;
         TextView textSteps;
         Button buttonAddToFavorites;
+        Button btnAddToPlan;
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -192,7 +212,36 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
             textIngredients = itemView.findViewById(R.id.textViewIngredientid);
             textSteps = itemView.findViewById(R.id.textViewSteps);
             buttonAddToFavorites = itemView.findViewById(R.id.buttonAddToFavorites);
+            btnAddToPlan=itemView.findViewById(R.id.addToPlan);
         }
     }
+
+    private void showDatePickerDialog(DatePickerCallback callback) {
+        final Calendar calendar = Calendar.getInstance();
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int selectedYear,
+                                          int selectedMonth, int selectedDayOfMonth) {
+
+                        calendar.set(Calendar.YEAR, selectedYear);
+                        calendar.set(Calendar.MONTH, selectedMonth);
+                        calendar.set(Calendar.DAY_OF_MONTH, selectedDayOfMonth);
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
+                        String formattedDate = dateFormat.format(calendar.getTime());
+
+                        callback.onDateSelected(formattedDate);
+                    }
+                }, year, month, dayOfMonth);
+
+        datePickerDialog.show();
+    }
+
 }
 

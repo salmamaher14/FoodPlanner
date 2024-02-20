@@ -24,9 +24,7 @@ public class FavMealPresenterImpl implements FavMealPresenter{
     @Override
     public void getFavMeals() {
          Flowable<List<Meal>> favMeals =_repo.getStoredFavMeals();
-//        Log.i("favmealsdetails", "getFaMeals: "+favMeals.subscribeOn(Schedulers.newThread()).observeOn(
-//                AndroidSchedulers.mainThread()).subscribe(item->item.get(0).getStrInstructions())
-//        );
+
         _view.showFavMeals(favMeals);
 
     }

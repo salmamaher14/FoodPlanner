@@ -24,7 +24,6 @@ public class FoodRepositoryImpl implements FoodRepository {
 
 
 
-
     @Override
     public void getAllCategories(NetworkDeligate networkDeligate) {
         remoteSource.getAllCategories(networkDeligate);
@@ -32,7 +31,12 @@ public class FoodRepositoryImpl implements FoodRepository {
     }
 
     @Override
-    public void getMealsByCategoryId(NetworkDeligate networkDeligate, String categoryName) {
+    public void getAllIngrediants(NetworkDeligate networkDeligate) {
+        remoteSource.getAllIngrediants(networkDeligate);
+    }
+
+    @Override
+    public void getMealsByCategoryName(NetworkDeligate networkDeligate, String categoryName) {
         remoteSource.getMealsByCategoryName(networkDeligate,categoryName);
     }
 
@@ -56,6 +60,73 @@ public class FoodRepositoryImpl implements FoodRepository {
     public void deleteMeal(Meal meal) {
         localSource.deleteMeal(meal);
 
+    }
+
+
+
+    @Override
+    public Flowable<List<String>> getPlannedDays() {
+        return  localSource.getPlannedDays();
+    }
+
+
+    @Override
+    public void insertPlannedMeal(MealDetail meal,String date) {
+        localSource.insertPlannedMeal(meal, date);
+
+    }
+
+    @Override
+    public void deletePlannedMeal(PlannedMeal meal) {
+        localSource.deletePlannedMeal(meal);
+
+    }
+
+    @Override
+    public Flowable<List<PlannedMeal>> getPlannedMealsForDate(String selectedDate) {
+        return localSource.getPlannedMealsForDate(selectedDate);
+    }
+
+    @Override
+    public void getMealsByMainIngrediants(NetworkDeligate networkDeligate,String ingrediant) {
+        remoteSource.getMealsByMainIngrediant(networkDeligate,ingrediant);
+
+    }
+
+    @Override
+    public void getMealsByArea(NetworkDeligate networkDeligate,String area) {
+        remoteSource.getMealsByArea(networkDeligate,area);
+
+    }
+
+    @Override
+    public void getAllAreas(NetworkDeligate networkDeligate) {
+        remoteSource.getAllAreas(networkDeligate);
+    }
+
+    @Override
+    public void getFetchedCategories(NetworkDeligate networkDeligate,String category) {
+        remoteSource.fetchCategories(networkDeligate,category);
+    }
+
+    @Override
+    public void getFetchedAreas(NetworkDeligate networkDeligate, String area) {
+        remoteSource.fetchAreas(networkDeligate,area);
+    }
+
+    @Override
+    public void getFetchedIngrediants(NetworkDeligate networkDeligate, String ingrediant) {
+        remoteSource.fetchIngrediants( networkDeligate,  ingrediant);
+    }
+
+    @Override
+    public void filterMealsByCategoryName(NetworkDeligate networkDeligate, String categoryName) {
+        remoteSource.filterMealsByCategoryName(networkDeligate,categoryName);
+    }
+
+    @Override
+    public void filterMealsByFirstLetter(NetworkDeligate networkDeligate, String mealName) {
+        remoteSource.filterMealByFirstLetter(networkDeligate,mealName);
     }
 
 

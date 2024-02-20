@@ -51,5 +51,10 @@ public class Category implements Serializable {
     public void setStrCategoryDescription(String strCategoryDescription) {
         this.strCategoryDescription = strCategoryDescription;
     }
+    @Override
+    public String toString() {
+        return strCategory;
+    }
+
 
 }

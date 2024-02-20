@@ -32,8 +32,53 @@ public class AllMealsPresenterImpl implements AllMealsPresenter , NetworkDeligat
     }
 
     @Override
+    public void onSuccessFetchedCategories(List fetchedCategories) {
+
+    }
+
+    @Override
+    public void onSuccessGetMealsByCategoryName(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetMealsByAreaName(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetMealsByMainIngrediant(List meals) {
+
+    }
+
+    @Override
+    public void onSuccessGetAllIngrediants(List ingrediants) {
+
+    }
+
+    @Override
+    public void onSuccessGetAllArea(List areas) {
+
+    }
+
+    @Override
+    public void OnSuccessFetchedAreas(List fetchedAreas) {
+
+    }
+
+    @Override
+    public void OnSuccessFetchedIngrediants(List fetchedIngrediants) {
+
+    }
+
+    @Override
+    public void OnSuccessgetMealsByFirstLetter(List fetchedMeals) {
+
+    }
+
+    @Override
     public void getMealsByCategoryName(String categoryName) {
-        _repo.getMealsByCategoryId(this,categoryName);
+        _repo.getMealsByCategoryName(this,categoryName);
     }
 
 

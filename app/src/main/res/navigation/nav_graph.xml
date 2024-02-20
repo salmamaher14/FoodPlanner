@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mealDetailFragment_to_favMealFragment"
             app:destination="@id/favMealFragment" />
+        <action
+            android:id="@+id/action_mealDetailFragment_to_planningDaysFragment"
+            app:destination="@id/planningDaysFragment" />
     </fragment>
     <fragment
         android:id="@+id/allCategoriesFragment"
@@ -44,5 +47,35 @@
         <argument
             android:name="categoryName"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/planningDaysFragment"
+        android:name="planned_days.view.PlanningDaysFragment"
+        android:label="fragment_planned_meals"
+        tools:layout="@layout/fragment_planning_days" >
+        <action
+            android:id="@+id/action_planningDaysFragment_to_plannedMealsFragment"
+            app:destination="@id/plannedMealsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/plannedMealsFragment"
+        android:name="getplannedmeals.view.PlannedMealsFragment"
+        android:label="fragment_planned_meals"
+        tools:layout="@layout/fragment_planned_meals" >
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_plannedMealsFragment_to_mealDetailFragment"
+            app:destination="@id/mealDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFeatureFragment"
+        android:name="search.view.SearchFeatureFragment"
+        android:label="fragment_search_feature"
+        tools:layout="@layout/fragment_search_feature" >
+        <action
+            android:id="@+id/action_searchFeatureFragment_to_mealDetailFragment"
+            app:destination="@id/mealDetailFragment" />
     </fragment>
 </navigation>
