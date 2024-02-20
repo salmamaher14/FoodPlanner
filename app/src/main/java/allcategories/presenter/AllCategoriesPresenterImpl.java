@@ -80,6 +80,11 @@ public class AllCategoriesPresenterImpl implements AllCategoriesPresenter, Netwo
 
     }
 
+    @Override
+    public void OnSuccessgetRandomMeal(List MealDetail) {
+        _view.showRandomMeal(MealDetail);
+    }
+
 
     @Override
     public void getAllCategories() {
@@ -88,7 +93,10 @@ public class AllCategoriesPresenterImpl implements AllCategoriesPresenter, Netwo
 
     }
 
-
+    @Override
+    public void getRandomMeal() {
+        _repo.getRandomMeal(this);
+    }
 
 
 }

@@ -15,5 +15,6 @@ public interface NetworkDeligate<T> {
     void OnSuccessFetchedAreas(List<T>fetchedAreas);
     void OnSuccessFetchedIngrediants(List<T>fetchedIngrediants);
     void OnSuccessgetMealsByFirstLetter(List<T>fetchedMeals);
+    void OnSuccessgetRandomMeal(List<T>randomMeal);
 }
 

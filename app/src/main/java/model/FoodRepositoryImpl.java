@@ -129,5 +129,10 @@ public class FoodRepositoryImpl implements FoodRepository {
         remoteSource.filterMealByFirstLetter(networkDeligate,mealName);
     }
 
+    @Override
+    public void getRandomMeal(NetworkDeligate networkDeligate) {
+        remoteSource.getRandomMeal(networkDeligate);
+    }
+
 
 }

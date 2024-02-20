@@ -298,5 +298,22 @@ public class FoodRemoteDataSourceImpl implements FoodRemoteDataSource {
                 );
     }
 
+    @Override
+    public void getRandomMeal(NetworkDeligate networkDeligate) {
+        mealsDetailsCall = foodService.getRandomMeal();
+        mealsDetailsCall.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()
+        ).subscribe(
+                response -> {
+                    List<MealDetail> mealDetailList = response.getMealsDetails();
+                    networkDeligate.OnSuccessgetRandomMeal(mealDetailList);
+                },
+                throwable -> {
+                    networkDeligate.onFailureResult(throwable.getMessage());
+                    throwable.printStackTrace();
+                }
+        );
+
+    }
+
 
 }

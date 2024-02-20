@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -56,18 +59,18 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
         MealDetail meal = mealList.get(position);
 
-        // Set meal name
+
         holder.textMealName.setText(meal.getStrMeal());
 
-        // Load meal image
+
         Glide.with(context)
                 .load(meal.getStrMealThumb())
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(holder.imageMeal);
 
-        // Set origin country
+
         holder.textOriginCountry.setText(meal.getStrArea());
-        // ingridiants
+
         StringBuilder ingredientsBuilder = new StringBuilder();
         for (int i = 1; i <= 20; i++) {
             String ingredient = getIngredient(meal, i);
@@ -76,21 +79,25 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
         }
         holder.textIngredients.setText(ingredientsBuilder.toString());
 
-
-        // Set ingredients text
         holder.textIngredients.setText(ingredientsBuilder.toString());
 
-
-        // Set steps
         holder.textSteps.setText(meal.getStrInstructions());
 
-//        SimpleExoPlayer exoPlayer;
-//        Uri videoUri = Uri.parse(meal.getStrYoutube());
-//        exoPlayer = new SimpleExoPlayer.Builder(context).build();
-//        MediaItem mediaItem = MediaItem.fromUri(videoUri);
-//        exoPlayer.setMediaItem(mediaItem);
-//        exoPlayer.setPlayWhenReady(true);
-//        holder.playerView.setPlayer(exoPlayer);
+        String videoId = extractVideoId(meal.getStrYoutube());
+
+
+        holder.youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                super.onReady(youTubePlayer);
+                youTubePlayer.loadVideo(videoId, 0);
+            }
+        });
+
+
+
+
+
 
         holder.buttonAddToFavorites.setOnClickListener(new View.OnClickListener() {
 
@@ -202,10 +209,10 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
         TextView textSteps;
         Button buttonAddToFavorites;
         Button btnAddToPlan;
+        YouTubePlayerView youTubePlayerView ;
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
-//            playerView = itemView.findViewById(R.id.playerView);
             imageMeal = itemView.findViewById(R.id.imageViewMeal);
             textMealName = itemView.findViewById(R.id.textViewMealName);
             textOriginCountry = itemView.findViewById(R.id.textViewOriginCountry);
@@ -213,6 +220,7 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
             textSteps = itemView.findViewById(R.id.textViewSteps);
             buttonAddToFavorites = itemView.findViewById(R.id.buttonAddToFavorites);
             btnAddToPlan=itemView.findViewById(R.id.addToPlan);
+            youTubePlayerView=itemView.findViewById(R.id.videoId);
         }
     }
 
@@ -241,6 +249,18 @@ public class MealDetailAdapter extends RecyclerView.Adapter<MealDetailAdapter.Me
                 }, year, month, dayOfMonth);
 
         datePickerDialog.show();
+    }
+
+
+    private String extractVideoId(String videoUrl) {
+        String videoId = null;
+        if (videoUrl != null && videoUrl.trim().length() > 0) {
+            String[] parts = videoUrl.split("=");
+            if (parts.length > 1) {
+                videoId = parts[1];
+            }
+        }
+        return videoId;
     }
 
 }

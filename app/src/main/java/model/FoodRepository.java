@@ -36,6 +36,7 @@ public interface FoodRepository {
     public void getFetchedIngrediants(NetworkDeligate networkDeligate,String ingrediant);
     public  void filterMealsByCategoryName(NetworkDeligate networkDeligate,String categoryName);
     public  void filterMealsByFirstLetter(NetworkDeligate networkDeligate,String mealName);
+    public void getRandomMeal(NetworkDeligate networkDeligate);
 
 
 

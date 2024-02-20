@@ -5,5 +5,6 @@ import network.NetworkDeligate;
 
 public interface AllCategoriesPresenter {
     public void getAllCategories();
+    public void getRandomMeal();
 
 }

@@ -74,6 +74,11 @@ public class SearchPresenterImpl implements SearchPresenter,NetworkDeligate {
         _view.showMealsByFirstLetter(Meal);
     }
 
+    @Override
+    public void OnSuccessgetRandomMeal(List randomMeal) {
+
+    }
+
 
     @Override
     public void filterByMainIngrediant(String ingrediant) {

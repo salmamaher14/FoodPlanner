@@ -77,6 +77,11 @@ public class AllMealsPresenterImpl implements AllMealsPresenter , NetworkDeligat
     }
 
     @Override
+    public void OnSuccessgetRandomMeal(List randomMeal) {
+
+    }
+
+    @Override
     public void getMealsByCategoryName(String categoryName) {
         _repo.getMealsByCategoryName(this,categoryName);
     }

@@ -74,6 +74,11 @@ public class MealDetailPresenterImpl implements MealDetailPresenter , NetworkDel
 
     }
 
+    @Override
+    public void OnSuccessgetRandomMeal(List randomMeal) {
+
+    }
+
 
     @Override
     public void getMealsById(String id) {

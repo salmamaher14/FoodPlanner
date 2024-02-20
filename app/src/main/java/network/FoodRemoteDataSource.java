@@ -20,6 +20,8 @@ public interface FoodRemoteDataSource {
     void fetchIngrediants(NetworkDeligate networkDeligate,String ingrediant);
     void filterMealsByCategoryName(NetworkDeligate networkDeligate,String categoryName);
     void filterMealByFirstLetter(NetworkDeligate networkDeligate,String mealName);
+    void getRandomMeal(NetworkDeligate networkDeligate);
+
 
 
 

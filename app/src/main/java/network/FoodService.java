@@ -4,6 +4,7 @@ import io.reactivex.rxjava3.core.Single;
 import model.Areas;
 import model.Categories;
 import model.Ingrediants;
+import model.MealDetail;
 import model.Meals;
 import model.AllMealsDetails;
 import retrofit2.Call;
@@ -39,7 +40,10 @@ public interface FoodService {
     @GET("api/json/v1/1/search.php")
     Single<Meals>getMealByFirstLetter(@Query("f") String meal);
 
-//    @GET("images/ingredients")
+    @GET("api/json/v1/1/random.php")
+    Single<AllMealsDetails>getRandomMeal();
+
+
 
 
 

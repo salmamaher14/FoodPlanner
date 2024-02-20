@@ -30,6 +30,6 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/favorite"
         android:title="Item"
-        android:id="@+id/favouriteFragment"/>
+        android:id="@+id/favMealFragment"/>
 
 </menu>
